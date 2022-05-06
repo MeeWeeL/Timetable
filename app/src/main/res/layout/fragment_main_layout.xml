@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#1C1C1C"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -283,7 +284,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/classes_label"
         app:layout_constraintBottom_toTopOf="@id/homework_label"
-        app:layout_constraintVertical_weight="5"/>
+        app:layout_constraintVertical_weight="6"
+        tools:listitem="@layout/item_class_layout"/>
 
     <LinearLayout
         android:id="@+id/homework_label"
@@ -310,7 +312,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/homework_label"
         app:layout_constraintBottom_toTopOf="@id/nav_bar_card"
-        app:layout_constraintVertical_weight="9"/>
+        app:layout_constraintVertical_weight="9"
+        tools:listitem="@layout/item_homework_layout"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/nav_bar_card"
@@ -326,7 +329,6 @@
             android:layout_height="wrap_content"
             app:menu="@menu/nav_bar_menu"/>
     </androidx.cardview.widget.CardView>
-
 
     <FrameLayout
         android:id="@+id/loadingLayout"
