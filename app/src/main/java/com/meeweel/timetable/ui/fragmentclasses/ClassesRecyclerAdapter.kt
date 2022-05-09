@@ -1,22 +1,20 @@
-package com.meeweel.timetable.ui.fragmenthome
+package com.meeweel.timetable.ui.fragmentclasses
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.timetable.R
-import com.meeweel.timetable.databinding.ItemClassLayoutBinding
+import com.meeweel.timetable.databinding.ItemClassesFragmentLayoutBinding
 import com.meeweel.timetable.domain.Class
 
-class HomeClassesRecyclerAdapter :
-    RecyclerView.Adapter<HomeClassesRecyclerAdapter.ClassesViewHolder>() {
+class ClassesRecyclerAdapter :
+    RecyclerView.Adapter<ClassesRecyclerAdapter.ClassesViewHolder>() {
 
     private var dataList: MutableList<Class> = mutableListOf()
 
-    private var onItemViewClickListener: HomeFragment.OnItemViewClickListener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassesViewHolder {
-        val binding = ItemClassLayoutBinding.inflate(
+        val binding = ItemClassesFragmentLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -32,7 +30,7 @@ class HomeClassesRecyclerAdapter :
         return dataList.size
     }
 
-    inner class ClassesViewHolder(private val binding: ItemClassLayoutBinding) :
+    inner class ClassesViewHolder(private val binding: ItemClassesFragmentLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Class, position: Int) {
@@ -47,20 +45,8 @@ class HomeClassesRecyclerAdapter :
                     "Math" -> icon.setImageResource(R.drawable.math)
                     else -> icon.setImageResource(R.drawable.literature)
                 }
-                root.setOnClickListener {
-                    onItemViewClickListener?.onItemViewClick(position)
-                }
             }
         }
-    }
-
-
-    fun setOnItemViewClickListener(onItemViewClickListener: HomeFragment.OnItemViewClickListener) {
-        this.onItemViewClickListener = onItemViewClickListener
-    }
-
-    fun removeOnItemViewClickListener() {
-        onItemViewClickListener = null
     }
 
     fun setData(data: List<Class>) {

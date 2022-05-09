@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.meeweel.timetable.R
 import com.meeweel.timetable.databinding.FragmentMainLayoutBinding
 import com.meeweel.timetable.domain.ClassesState
 import com.meeweel.timetable.domain.HomeworkState
+import com.meeweel.timetable.ui.MainActivity
+import com.meeweel.timetable.ui.fragmentclasses.ClassesFragment
 
 class HomeFragment : Fragment() {
 
@@ -37,7 +40,19 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         bind.homeworkRecycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        bind.navBar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.classes_nav_bar -> (requireActivity() as MainActivity).openFragment(ClassesFragment(0))
+            }
+            return@setOnItemSelectedListener true
+        }
         workLivedata()
+
+        classesAdapter.setOnItemViewClickListener(object : OnItemViewClickListener {
+            override fun onItemViewClick(classItem: Int) {
+                (requireActivity() as MainActivity).openFragment(ClassesFragment(classItem))
+            }
+        })
     }
 
     private fun workLivedata() {
@@ -97,8 +112,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    interface OnItemViewClickListener {
+        fun onItemViewClick(classItem: Int)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _bind = null
+        classesAdapter.removeOnItemViewClickListener()
     }
 }
